@@ -6,6 +6,8 @@ msg() {
 	echo 2>&1 $me: $@
 }
 
+msg USER=$USER HOME=$HOME
+
 # get code
 
 tmpdir=/tmp/$USER
