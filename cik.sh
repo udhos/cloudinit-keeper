@@ -44,7 +44,7 @@ url=http://localhost:8080/www/
 
 while :; do
 	sleep 5
-	http_code=$(curl -o /dev/null -s -w "%{http_code}\n" $url)
+	http_code=$(curl -o /dev/null -s -I -X GET -w "%{http_code}" $url)
 	exit_status=$?
 	msg "exit_status=$exit_status http_code=$http_code"
 	if [ "$exit_status" -ne 0 ] || [ "$http_code" != 200 ]; then
