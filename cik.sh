@@ -6,18 +6,21 @@ msg() {
 	echo 2>&1 $me: $@
 }
 
-app_home=/home/ec2-user/app
-app=$app_home/gowebhello
+# get code
 
-[ -d $app_home ] || mkdir $app_home || msg "mkdir fail: $app_home"
-
-# get binary
-
-cd /tmp
+tmpdir=/tmp/$USER
+mkdir $tmpdir
+cd $tmpdir
 rm -rf gowebhello
 git clone https://github.com/udhos/gowebhello
 cd gowebhello
-#go install ./gowebhello
+
+# compile
+
+app_home=$HOME/app
+app=$app_home/gowebhello
+rm -r $app_home
+mkdir $app_home
 go build -v -o $app ./gowebhello
 
 # start service
