@@ -14,7 +14,7 @@ msg USER=$USER HOME=$HOME
 # get code
 
 tmpdir=/tmp/$USER
-mkdir $tmpdir
+[ -d "$tmpdir" ] || mkdir "$tmpdir"
 cd $tmpdir
 rm -rf gowebhello
 git clone https://github.com/udhos/gowebhello
@@ -25,13 +25,13 @@ cd gowebhello
 app_home=$HOME/app
 app=$app_home/gowebhello
 rm -rf $app_home
-mkdir $app_home
+[ -d "$app_home" ] || mkdir "$app_home"
 /usr/local/go/bin/go build -v -o $app ./gowebhello
 
 # start service
 
 restart() {
-	msg restarting
+	msg restarting: $app
 	pkill -9 gowebhello
 	$app -quota=5 &
 }
@@ -44,9 +44,10 @@ url=http://localhost:8080/www/
 
 while :; do
 	sleep 5
-	status=$(curl -o /dev/null -s -w "%{http_code}\n" $url)
-	msg "status: $status"
-	if [ "$status" != 200 ]; then
+	http_code=$(curl -o /dev/null -s -w "%{http_code}\n" $url)
+	exit_status=$?
+	msg "exit_status=$exit_status http_code=$http_code"
+	if [ "$exit_status" -ne 0 ] || [ "$http_code" != 200 ]; then
 		restart
 	fi
 done
