@@ -36,7 +36,7 @@ url=http://localhost:8080/www/
 while :; do
 	sleep 5
 	status=$(curl -o /dev/null -s -w "%{http_code}\n" $url)
-	msg "status=$status"
+	msg "status: $status"
 	if [ "$status" != 200 ]; then
 		restart
 	fi
