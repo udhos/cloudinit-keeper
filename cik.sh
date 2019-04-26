@@ -19,9 +19,9 @@ cd gowebhello
 
 app_home=$HOME/app
 app=$app_home/gowebhello
-rm -r $app_home
+rm -rf $app_home
 mkdir $app_home
-go build -v -o $app ./gowebhello
+/usr/local/go/bin/go build -v -o $app ./gowebhello
 
 # start service
 
