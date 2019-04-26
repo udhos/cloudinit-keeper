@@ -6,6 +6,9 @@ msg() {
 	echo 2>&1 $me: $@
 }
 
+[ -z "$USER" ] && export USER=root
+[ -z "$HOME" ] && export HOME=/root
+
 msg USER=$USER HOME=$HOME
 
 # get code
