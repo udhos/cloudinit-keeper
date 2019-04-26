@@ -40,11 +40,6 @@ restart
 
 # loop 
 
-query() {
-	status=$(curl -o /dev/null -s -w "%{http_code}\n" http://www.google.com)
-	[ $status == 200 ]
-}
-
 url=http://localhost:8080/www/
 
 while :; do
